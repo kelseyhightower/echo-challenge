@@ -53,7 +53,7 @@ func (ph *pubSubHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	ctx := context.Background()
 	msgIDs, err := topic.Publish(ctx, &pubsub.Message{
 		Data: data,
-	})
+	}).Get(ctx)
 
 	childSpan.Finish()
 
