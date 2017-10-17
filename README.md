@@ -1,8 +1,10 @@
 # Echo
 
-Echo echos the body of an HTTP request to a Cloud Pub/Sub topic.
+Echo echoes the body of an HTTP request to a Cloud Pub/Sub topic.
 
 ## Usage
+
+Start the `echo` service:
 
 ```
 ./echo
@@ -11,9 +13,13 @@ Echo echos the body of an HTTP request to a Cloud Pub/Sub topic.
 2017/10/17 12:41:02 Starting echo service...
 ```
 
+Submit an HTTP request to the `/pubsub` endpoint:
+
 ```
 curl http://127.0.0.1:8080/pubsub -d 'Hello GCP!'
 ```
+
+Retrieve the message from the configured topic:
 
 ```
 gcloud beta pubsub subscriptions pull echo --auto-ack
