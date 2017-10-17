@@ -28,6 +28,7 @@ spec:
       containers:
         - name: echo
           image: "gcr.io/hightowerlabs/echo:1.0.0"
+          imagePullPolicy: Always
           env:
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: /var/secrets/google/service-account.json

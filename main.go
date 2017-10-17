@@ -46,7 +46,7 @@ func main() {
 		log.Fatalf("Failed to create trace client: %v", err)
 	}
 
-	p, err := trace.NewLimitedSampler(0.1, 5)
+	p, err := trace.NewLimitedSampler(1, 5)
 	if err != nil {
 		log.Fatalf("Failed to set tracing sampling policy: %v", err)
 	}
