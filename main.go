@@ -24,6 +24,8 @@ import (
 )
 
 func main() {
+	log.Println("Starting echo service...")
+
 	projectID := os.Getenv("PROJECT_ID")
 	if projectID == "" {
 		log.Fatalf("PROJECT_ID must be set and non-empty.")

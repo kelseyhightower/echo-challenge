@@ -42,7 +42,7 @@ func (ph *pubSubHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	data, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		log.Println("Failed to extract message from request: %v", err)
+		log.Printf("Failed to extract message from request: %v", err)
 		http.Error(w, "Failed to extract message from request", http.StatusInternalServerError)
 		return
 	}
@@ -63,5 +63,5 @@ func (ph *pubSubHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	log.Printf("Published a message with a message ID: %s\n", msgIDs[0])
+	log.Printf("Published a message with a message ID: %d\n", msgIDs[0])
 }

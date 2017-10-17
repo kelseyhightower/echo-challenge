@@ -1,9 +1,24 @@
-apiVersion: extensions/v1beta1
-kind: ReplicaSet
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: echo
+  name: echo
+spec:
+  ports:
+    - name: http
+      port: 8080
+      protocol: "TCP"
+  selector:
+    app: echo
+  type: LoadBalancer
+---
+apiVersion: apps/v1beta1
+kind: Deployment
 metadata:
   name: echo
 spec:
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       labels:
@@ -14,14 +29,21 @@ spec:
         - name: echo
           image: "gcr.io/hightowerlabs/echo:1.0.0"
           env:
-            - name: "PROJECT_ID"
-              value: ""
-            - name: "TOPIC"
-              value: "echo"
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /var/secrets/google/service-account.json
+            - name: PROJECT_ID
+              value: "hightowerlabs"
+            - name: TOPIC
+              value: echo
           volumeMounts:
-            - name: "certs"
-              mountPath: "/etc/ssl/certs"
+            - name: certs
+              mountPath: /etc/ssl/certs
+            - name: google-application-credentials
+              mountPath: /var/secrets/google
       volumes:
-        - name: "certs"
+        - name: certs
           hostPath:
-            path: "/etc/ssl/certs"
+            path: /etc/ssl/certs
+        - name: google-application-credentials
+          secret:
+            secretName: echo
