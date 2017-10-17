@@ -1,5 +1,33 @@
 # Echo
 
+Echo echos the body of an HTTP request to a Cloud Pub/Sub topic.
+
+## Usage
+
+```
+./echo
+```
+```
+2017/10/17 12:41:02 Starting echo service...
+```
+
+```
+curl http://127.0.0.1:8080/pubsub -d 'Hello GCP!'
+```
+
+```
+gcloud beta pubsub subscriptions pull echo --auto-ack
+```
+```
+┌───────────┬─────────────────┬────────────┐
+│    DATA   │    MESSAGE_ID   │ ATTRIBUTES │
+├───────────┼─────────────────┼────────────┤
+│ Hello GCP │ 160709762709502 │            │
+└───────────┴─────────────────┴────────────┘
+```
+
+> The echo service sends a trace to [Stackdriver](https://cloud.google.com/stackdriver) for every HTTP request.
+
 ## Build
 
 ```
@@ -15,4 +43,7 @@ gcr.io/hightowerlabs/echo:1.0.0
 ```
 
 The `echo` container image can be built using docker or [container builder](https://cloud.google.com/container-builder):
+
+```
 gcloud container builds submit --config cloudbuild.yaml .
+```
