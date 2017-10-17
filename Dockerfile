@@ -1,3 +1,3 @@
 FROM scratch
-ADD echo /echo
+COPY echo /echo
 ENTRYPOINT ["/echo"]
